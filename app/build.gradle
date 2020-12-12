@@ -51,43 +51,12 @@ dependencies {
     //androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //testCompile "org.assertj:assertj-core:3.11.1"
-    //testImplementation"org.assertj:assertj-core:3.11.1"
-    //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.1'
-    //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
-
-    //testImplementation (platform('org.junit:junit-bom:5.7.0'))
-    //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    //testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.7.0"
-
-    //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    //testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
-    //testCompile "org.mockito:mockito-core:2.23.0"
-
     testImplementation (platform('org.junit:junit-bom:5.7.0'))
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.7.0"
 
-    //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
-    //testCompile "org.mockito:mockito-core:2.+"
     testImplementation "org.mockito:mockito-core:2.+"
 
 }
-
-//test {
-    //useJUnitPlatform()
-//}
-
-//test {
-	//useJUnitPlatform()
-        //maxHeapSize = '1G'
-        //testLogging {
-		//events "failed"
-		//exceptionFormat "full"
-                //showStandardStreams = true
-	//}
-//}
