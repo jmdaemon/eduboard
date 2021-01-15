@@ -22,8 +22,16 @@ class HttpsUrlConnectionTests {
     mockWebServer.shutdown()  
   }
 
+  fun createGETExpectation() {
+    mockWebServer.enqueue(MockResponse().setBody("GET request received by server"));
+  }
+
   @Test
   fun runReturnsResponse() {
-    assertNotNull(Http.run("https://publicobject.com/helloworld.txt"))
+    //assertNotNull(Http.run("https://publicobject.com/helloworld.txt"))
+    createGETExpectation()
+    val response = Http.run(url)
+    assertNotNull(response)
+    assertEquals("GET request received by server", response)
   }
 }
