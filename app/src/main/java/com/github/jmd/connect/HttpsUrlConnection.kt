@@ -7,20 +7,13 @@ import okhttp3.Response;
 class Http {
   private val client = OkHttpClient()
 
-  fun run(): String {
+  fun run(url: String): String {
     val request = Request.Builder()
-        .url("https://publicobject.com/helloworld.txt")
+        .url(url)
         .build()
-
     client.newCall(request).execute().use { response ->
       if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-      //for ((name, value) in response.headers) {
-        //println("$name: $value")
-      //}
-
-      //println(response.body!!.string())
       return response.body!!.string()
     }
-  } 
+  }
 }

@@ -10,6 +10,6 @@ class HttpsUrlConnectionTests {
 
   @Test
   fun runReturnsResponse() {
-    assertNotNull(Http.run())
+    assertNotNull(Http.run("https://publicobject.com/helloworld.txt"))
   }
 }
