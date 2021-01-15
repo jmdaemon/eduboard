@@ -1,4 +1,5 @@
-package com.github.jmd.user
+package test.com.github.jmd.user
+import com.github.jmd.user.*
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
