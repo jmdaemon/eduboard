@@ -1,3 +1,4 @@
+package com.github.jmd.connect
 import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
