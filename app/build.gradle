@@ -8,6 +8,13 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    ext { 
+        base        = "java/github/jmd"
+        src         = "src/main/$base"
+        test        = "src/test/$base"
+        resources   = "src/main/res"
+    }
+
     defaultConfig {
         applicationId "com.github.jmd.eduboard"
         minSdkVersion 16
@@ -22,6 +29,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+  testOptions {
+    unitTests.includeAndroidResources = true
+
+    unitTests.all {
+        useJUnitPlatform()
+        maxHeapSize = '1G'
+
+        reports {
+            junitXml.enabled = true
+            html.enabled = false 
+            }
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -33,6 +54,7 @@ android {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -44,18 +66,139 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
 
+    // Core library 
+    //androidTestImplementation 'androidx.test:core:1.0.0' 
+    //// AndroidJUnitRunner and JUnit Rules 
+    //androidTestImplementation 'androidx.test:runner:1.1.0' 
+    //androidTestImplementation 'androidx.test:rules:1.1.0'
+
     testImplementation (platform('org.junit:junit-bom:5.7.0'))
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    testRuntimeOnly "org.junit.platform:junit-platform-launcher:1.7.0"
+    testCompileOnly 'org.junit.jupiter:junit-jupiter-params:5.7.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.7.0'
 
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.0")
 
-}
 
-sourceSets() {
-}
-apply from: 'test.gradle'
+} 
+
+//test {
+    //useJUnitPlatform()
+    //maxHeapSize = '1G'
+//}
+
+
+//test {
+    //useJUnitPlatform()
+//} 
+
+
+
+//sourceSets.all {
+//ext.base = base
+//ext.src = src
+//ext.test = test
+//ext.resources = resources
+//}
+
+apply from: 'test.gradle' 
+
+//tasks.test {
+    //useJUnitPlatform()
+//}
+
+//sourceSets {
+    ////main.kotlin.srcDirs += "$src" 
+    //main.java.srcDirs += {"$src/connect", "$src/user-account", "$src/eduboard"}
+    ////test.java.srcDirs += "$test/connect" 
+    ////main.kotlin.srcDirs = {"$src/connect", "$src/user-account", "$src/eduboard"}
+    ////main {
+        ////kotlin {
+        ////jvm {
+            ////srcDirs = ["$src/connect", "$src/user-account", "$src/eduboard"]
+            ////}
+        ////}
+    ////}
+
+    ////test {
+        ////kotlin {
+        ////jvm {
+            ////srcDirs = ["$test/connect", "$test/user-account", "$test/eduboard"]
+            ////}
+        ////}
+    ////}
+//}
+
+//sourceSets.main {
+    ////java.srcDirs("$src/connect", "$src/connect")
+    //java.srcDirs("$src/connect")
+//}
+
+//sourceSets {
+    //main { 
+    //java.srcDirs("$src/connect")
+    //}
+//} 
+
+//kotlin {
+    //sourceSets {
+        //commonTest {
+            //dependencies {
+                //implementation kotlin('test-common')
+                //implementation kotlin('test-annotations-common')
+            //}
+        //}
+        //jvmTest {
+            //dependencies {
+                //implementation kotlin('test-junit')
+                //implementation kotlin('test-junit5')
+            //}
+        //}
+        //jsTest {
+            //dependencies {
+                //implementation kotlin('test-js')
+            //}
+        //}
+    //}
+//}
+
+//kotlin {
+    //sourceSets {
+        //val commonTest by getting {
+            //dependencies {
+                //implementation(kotlin("test-common"))
+                //implementation(kotlin("test-annotations-common"))
+            //}
+        //}
+        //val jvmTest by getting {
+            //dependencies {
+                //implementation(kotlin("test-junit"))
+            //}
+        //}
+        //val jsTest by getting {
+            //dependencies {
+                //implementation(kotlin("test-js"))
+            //}
+        //}
+    //}
+//}
+
+
+
+//kotlin {
+    //sourceSets {
+        ////main.kotlin.srcDirs += 'src/main/myKotlin'
+        //main.kotlin.srcDirs += "$src/connect"
+    //}
+//}
+
+//kotlin {
+    //sourceSets["main"].apply {    
+        ////kotlin.srcDir("src/main/myKotlin") 
+        //kotlin.srcDir("$src/connect") 
+    //}
+//} 
