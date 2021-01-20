@@ -2,8 +2,6 @@ package com.github.jmd.connect
 
 import java.io.IOException
 import java.io.File
-//import java.nio.file.Files
-//import java.nio.file.Paths
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -39,14 +37,11 @@ class Http {
   }
 
   fun POSTForm(url: String, fileName: String): String {
-    //if (!Files.exists(Paths.get(fileName)))
-      //return String(fileName + " not found")
     val file = File(fileName)
     if (!file.exists() || file.isDirectory()) {
-      //val errorMsg = "$fileName does not exist"
-      //println(errorMsg)
-      //return errorMsg
-      return "$fileName not found"
+      val errorMsg = "$fileName not found"
+      println(errorMsg)
+      return errorMsg
     }
 
     val request = Request.Builder()
