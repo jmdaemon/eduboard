@@ -28,9 +28,18 @@ fun createFileBody(fileName: String, mediaType: MediaType): RequestBody {
 }
 
 fun createFormBody(formParams: Map<String, String> ): RequestBody {
-  val formValue: String = formParams[formParams.keys.elementAt(0).toString()]!!
-  val formBody = FormBody.Builder()
-      .add(formParams.keys.elementAt(0), formValue)
-      .build()
+  //val formValue: String = formParams[formParams.keys.elementAt(0).toString()]!!
+  val formBuilder = FormBody.Builder()
+  //for (formKey in formParams) { 
+  //val iterator = ().iterator()
+    //formParams.forEach {
+    //val formValue: String = formParams[formParams.keys.elementAt(formKey).toString()]!!  
+    //formBody.add(formParams.keys.elementAt(formKey), formValue) 
+  for ((k,v) in formParams) {
+    val formValue: String = formParams[k.toString()]!!  
+    formBuilder.add(k, v)
+    //.build()
+  } 
+  val formBody: RequestBody = formBuilder.build()
   return formBody
 }
