@@ -1,10 +1,12 @@
 package com.github.jmd.connect
 
 import java.io.IOException
+import java.io.FileNotFoundException;
 import java.io.File
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody;
 import okhttp3.Response
 import okhttp3.FormBody
 import okhttp3.MediaType.Companion.toMediaType
@@ -28,38 +30,58 @@ class Http {
     return sendRequest(request)
   }
 
-  fun POST(url: String, postBody: String): String {
-    val request = Request.Builder()
-        .url(url)
-        .post(postBody.toRequestBody(MEDIA_TYPE_PLAIN))
-        .build()
-    return sendRequest(request)
+  fun createPostBody(postBody: String): RequestBody { 
+    return postBody.toRequestBody(MEDIA_TYPE_PLAIN)
   }
 
-  fun POSTForm(url: String, fileName: String): String {
+  fun createFileBody(fileName: String): RequestBody {
     val file = File(fileName)
     if (!file.exists() || file.isDirectory()) {
       val errorMsg = "$fileName not found"
       println(errorMsg)
-      return errorMsg
+      throw FileNotFoundException("$fileName not found")
+      //return errorMsg
     }
+    return file.asRequestBody(MEDIA_TYPE_PLAIN)
+  }
 
+  fun createFormBody(): RequestBody {
+    val formBody = FormBody.Builder()
+        .add("search", "Jurassic Park")
+        .build()
+    return formBody
+  }
+
+  fun sendPostRequest(url: String, requestBody: RequestBody): String {
     val request = Request.Builder()
         .url(url)
-        .post(file.asRequestBody(MEDIA_TYPE_PLAIN))
+        .post(requestBody)
+        .build()
+    return sendRequest(request)
+  }
+
+  fun POST(url: String, postBody: String): String {
+    return sendPostRequest(url, createPostBody(postBody))
+    //val request = Request.Builder()
+        //.url(url)
+        //.post(createPostBody())
+        //.build()
+    //return sendRequest(request)
+  }
+
+  fun POSTForm(url: String, fileName: String): String {
+    val request = Request.Builder()
+        .url(url)
+        .post(createFileBody(fileName))
         .build()
     return sendRequest(request)
   }
 
   fun POSTParams(url: String): String {
-    val formBody = FormBody.Builder()
-        .add("search", "Jurassic Park")
-        .build()
     val request = Request.Builder()
         .url(url)
-        .post(formBody)
+        .post(createFormBody())
         .build()
-
     return sendRequest(request)
   }
 

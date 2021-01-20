@@ -1,11 +1,15 @@
 package test.com.github.jmd.connect
 import com.github.jmd.connect.*
 
+import java.io.FileNotFoundException
+
 import okhttp3.mockwebserver.*
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Test
+
+import kotlin.test.assertFailsWith
 
 class HttpsUrlConnectionTests {
   private var url = "http://127.0.0.1:8080"
@@ -54,9 +58,10 @@ class HttpsUrlConnectionTests {
   @Test
   fun POSTForm_WithFakeFileReturnsFileNotFound() {
     createPOSTFormExpectation()
-    val response = Http.POSTForm(url, "ImaginaryFile.txt")
-    assertNotNull(response)
-    assertEquals("ImaginaryFile.txt not found", response)
+    //val response = Http.POSTForm(url, "ImaginaryFile.txt")
+    assertFailsWith<FileNotFoundException> { Http.POSTForm(url, "ImaginaryFile.txt") }
+    //assertNotNull(response)
+    //assertEquals("ImaginaryFile.txt not found", response)
   }
 
   @Test
