@@ -29,18 +29,8 @@ fun createFileBody(fileName: String, mediaType: MediaType): RequestBody {
 
 fun createFormBody(formParams: Map<String, String> ): RequestBody {
   val formValue: String = formParams[formParams.keys.elementAt(0).toString()]!!
-  //val formValue = formParams[formParams.keys.elementAt(0)]
-  //if (formValue == null)
-    //println("Incomplete form")
-
-  //formValue?.let{
-    //println("")
-  //}
   val formBody = FormBody.Builder()
-      //.add("search", "Jurassic Park")
       .add(formParams.keys.elementAt(0), formValue)
-      //.add(formParams.keys.elementAt(0), formParams[formParams.keys.elementAt(0).toString()])
-  //val formValue = formParams[formParams.keys.elementAt(0)]
       .build()
   return formBody
 }

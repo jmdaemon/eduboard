@@ -66,8 +66,7 @@ class HttpsUrlConnectionTests {
   @Test
   fun POSTParamsReturnsResponse() {
     createPostParamsExpectation()
-    val formParams: Map<String, String> = mapOf("search" to "Jurassic Park")
-    val response = Http.POST(url, createFormBody(formParams))
+    val response = Http.POST(url, createFormBody(mapOf("search" to "Jurassic Park")))
     assertEquals("POST request with params received by server", response)
   }
 }
