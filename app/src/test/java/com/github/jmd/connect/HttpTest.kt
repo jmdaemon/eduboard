@@ -52,14 +52,14 @@ class HttpsUrlConnectionTests {
   @Test
   fun POSTReturnsResponse() {
     createPOSTExpectation()
-    val response = Http.POST(url, createPostBody("Sending Post Request...".trimMargin()))
+    val response = Http.POST(url, createPostBody("Sending Post Request...".trimMargin(), MEDIA_TYPE_PLAIN))
     assertEquals("POST request received by server", response)
   }
 
   @Test
   fun POSTForm_WithFakeFileReturnsFileNotFound() {
     createPOSTFormExpectation()
-    assertFailsWith<FileNotFoundException> { Http.POST(url, createFileBody("ImaginaryFile.txt")) }
+    assertFailsWith<FileNotFoundException> { Http.POST(url, createFileBody("ImaginaryFile.txt", MEDIA_TYPE_PLAIN)) }
   }
 
   @Test
