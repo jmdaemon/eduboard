@@ -39,6 +39,10 @@ class HttpsUrlConnectionTests {
     assertEquals("GET request received by server", response)
   }
 
-  //fun POSTReturnsResponse() {
-  //}
+  @Test
+  fun POSTReturnsResponse() {
+    val response = Http.POST("https://api.github.com/markdown/raw")
+    assertNotNull(response)
+    print(response)
+  }
 }
