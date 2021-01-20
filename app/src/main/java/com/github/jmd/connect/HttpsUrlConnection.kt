@@ -22,7 +22,6 @@ class Http {
   fun POST(url: String, postBody: String): String {
     val request = Request.Builder()
         .url(url)
-        //.post(postBody.toRequestBody(MEDIA_TYPE_MARKDOWN))
         .post(postBody.toRequestBody(MEDIA_TYPE_PLAIN))
         .build()
 
@@ -37,6 +36,4 @@ class Http {
     val MEDIA_TYPE_MARKDOWN = "text/x-markdown; charset=utf-8".toMediaType()
     val MEDIA_TYPE_PLAIN = "text/plain; charset=utf-8".toMediaType()
   }
-  //companion object {
-  //}
 }
