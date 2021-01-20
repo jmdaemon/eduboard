@@ -31,4 +31,8 @@ class Http {
         .build()
     return sendRequest(request)
   } 
+
+  fun POST(request: Request): String {
+    return sendRequest(request)
+  } 
 }
