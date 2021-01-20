@@ -38,6 +38,10 @@ class HttpsUrlConnectionTests {
     mockWebServer.enqueue(MockResponse().setBody("POST request with Form request body received by server"));
   }
 
+  fun createPostParamsExpectation() {
+    mockWebServer.enqueue(MockResponse().setBody("POST request with params received by server"));
+  }
+
   @Test
   fun GETReturnsResponse() {
     //assertNotNull(Http.run("https://publicobject.com/helloworld.txt"))
@@ -66,8 +70,11 @@ class HttpsUrlConnectionTests {
 
   @Test
   fun POSTParamsReturnsResponse() {
-    val response = Http.POSTParams("https://en.wikipedia.org/w/index.php")
+    //val response = Http.POSTParams("https://en.wikipedia.org/w/index.php")
+    createPostParamsExpectation()
+    val response = Http.POSTParams(url)
     assertNotNull(response)
-    println(response)
+    assertEquals("POST request with params received by server", response)
+    //println(response)
   }
 }
