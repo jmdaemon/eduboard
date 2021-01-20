@@ -62,27 +62,14 @@ class Http {
 
   fun POST(url: String, postBody: String): String {
     return sendPostRequest(url, createPostBody(postBody))
-    //val request = Request.Builder()
-        //.url(url)
-        //.post(createPostBody())
-        //.build()
-    //return sendRequest(request)
   }
 
   fun POSTForm(url: String, fileName: String): String {
-    val request = Request.Builder()
-        .url(url)
-        .post(createFileBody(fileName))
-        .build()
-    return sendRequest(request)
+    return sendPostRequest(url, createFileBody(fileName))
   }
 
   fun POSTParams(url: String): String {
-    val request = Request.Builder()
-        .url(url)
-        .post(createFormBody())
-        .build()
-    return sendRequest(request)
+    return sendPostRequest(url, createFormBody())
   }
 
   companion object {
