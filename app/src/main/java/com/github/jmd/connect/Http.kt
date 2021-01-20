@@ -13,14 +13,18 @@ import okhttp3.RequestBody.Companion.asRequestBody
 class Http {
   private val client = OkHttpClient()
 
-  fun GET(url: String): String {
-    val request = Request.Builder()
-        .url(url)
-        .build()
+  fun sendRequest(request: Request): String {
     client.newCall(request).execute().use { response ->
       if (!response.isSuccessful) throw IOException("Unexpected code $response")
       return response.body!!.string()
     }
+  }
+
+  fun GET(url: String): String {
+    val request = Request.Builder()
+        .url(url)
+        .build() 
+    return sendRequest(request)
   }
 
   fun POST(url: String, postBody: String): String {
@@ -28,12 +32,7 @@ class Http {
         .url(url)
         .post(postBody.toRequestBody(MEDIA_TYPE_PLAIN))
         .build()
-
-    client.newCall(request).execute().use { response ->
-      if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-      return response.body!!.string()
-    }
+    return sendRequest(request)
   }
 
   fun POSTForm(url: String, fileName: String): String {
@@ -48,12 +47,7 @@ class Http {
         .url(url)
         .post(file.asRequestBody(MEDIA_TYPE_PLAIN))
         .build()
-
-    client.newCall(request).execute().use { response ->
-      if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-      return response.body!!.string()
-    }
+    return sendRequest(request)
   }
 
   companion object {
