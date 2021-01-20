@@ -1,10 +1,16 @@
 package com.github.jmd.connect
-import java.io.IOException;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+
+import java.io.IOException
+import java.io.File
+//import java.nio.file.Files
+//import java.nio.file.Paths
+
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 class Http {
   private val client = OkHttpClient()
@@ -23,6 +29,29 @@ class Http {
     val request = Request.Builder()
         .url(url)
         .post(postBody.toRequestBody(MEDIA_TYPE_PLAIN))
+        .build()
+
+    client.newCall(request).execute().use { response ->
+      if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+      return response.body!!.string()
+    }
+  }
+
+  fun POSTForm(url: String, fileName: String): String {
+    //if (!Files.exists(Paths.get(fileName)))
+      //return String(fileName + " not found")
+    val file = File(fileName)
+    if (!file.exists() || file.isDirectory()) {
+      //val errorMsg = "$fileName does not exist"
+      //println(errorMsg)
+      //return errorMsg
+      return "$fileName not found"
+    }
+
+    val request = Request.Builder()
+        .url(url)
+        .post(file.asRequestBody(MEDIA_TYPE_PLAIN))
         .build()
 
     client.newCall(request).execute().use { response ->

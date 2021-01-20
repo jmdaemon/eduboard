@@ -30,6 +30,10 @@ class HttpsUrlConnectionTests {
     mockWebServer.enqueue(MockResponse().setBody("POST request received by server"));
   }
 
+  fun createPOSTFormExpectation() {
+    mockWebServer.enqueue(MockResponse().setBody("POST request with Form request body received by server"));
+  }
+
   @Test
   fun GETReturnsResponse() {
     //assertNotNull(Http.run("https://publicobject.com/helloworld.txt"))
@@ -45,5 +49,13 @@ class HttpsUrlConnectionTests {
     val response = Http.POST(url, "Sending Post Request...".trimMargin())
     assertNotNull(response)
     assertEquals("POST request received by server", response)
+  }
+
+  @Test
+  fun POSTForm_WithFakeFileReturnsFileNotFound() {
+    createPOSTFormExpectation()
+    val response = Http.POSTForm(url, "ImaginaryFile.txt")
+    assertNotNull(response)
+    assertEquals("ImaginaryFile.txt not found", response)
   }
 }
