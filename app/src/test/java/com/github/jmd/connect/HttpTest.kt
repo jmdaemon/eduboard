@@ -52,20 +52,20 @@ class HttpsUrlConnectionTests {
   @Test
   fun POSTReturnsResponse() {
     createPOSTExpectation()
-    val response = Http.POST(url, Http.createPostBody("Sending Post Request...".trimMargin()))
+    val response = Http.POST(url, createPostBody("Sending Post Request...".trimMargin()))
     assertEquals("POST request received by server", response)
   }
 
   @Test
   fun POSTForm_WithFakeFileReturnsFileNotFound() {
     createPOSTFormExpectation()
-    assertFailsWith<FileNotFoundException> { Http.POST(url, Http.createFileBody("ImaginaryFile.txt")) }
+    assertFailsWith<FileNotFoundException> { Http.POST(url, createFileBody("ImaginaryFile.txt")) }
   }
 
   @Test
   fun POSTParamsReturnsResponse() {
     createPostParamsExpectation()
-    val response = Http.POST(url, Http.createFormBody())
+    val response = Http.POST(url, createFormBody())
     assertEquals("POST request with params received by server", response)
   }
 }

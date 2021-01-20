@@ -30,27 +30,6 @@ class Http {
     return sendRequest(request)
   }
 
-  fun createPostBody(postBody: String): RequestBody { 
-    return postBody.toRequestBody(MEDIA_TYPE_PLAIN)
-  }
-
-  fun createFileBody(fileName: String): RequestBody {
-    val file = File(fileName)
-    if (!file.exists() || file.isDirectory()) {
-      val errorMsg = "$fileName not found"
-      println(errorMsg)
-      throw FileNotFoundException("$fileName not found")
-    }
-    return file.asRequestBody(MEDIA_TYPE_PLAIN)
-  }
-
-  fun createFormBody(): RequestBody {
-    val formBody = FormBody.Builder()
-        .add("search", "Jurassic Park")
-        .build()
-    return formBody
-  }
-
   fun POST(url: String, requestBody: RequestBody): String {
     val request = Request.Builder()
         .url(url)
@@ -59,8 +38,5 @@ class Http {
     return sendRequest(request)
   }
 
-  companion object {
-    val MEDIA_TYPE_MARKDOWN = "text/x-markdown; charset=utf-8".toMediaType()
-    val MEDIA_TYPE_PLAIN = "text/plain; charset=utf-8".toMediaType()
-  }
+
 }
