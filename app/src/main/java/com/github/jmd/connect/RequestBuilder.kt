@@ -2,6 +2,7 @@ package com.github.jmd.connect
 
 import java.io.FileNotFoundException;
 import java.io.File
+import kotlin.collections.map
 import okhttp3.RequestBody
 import okhttp3.FormBody
 import okhttp3.MediaType
@@ -23,13 +24,23 @@ fun createFileBody(fileName: String, mediaType: MediaType): RequestBody {
     println(errorMsg)
     throw FileNotFoundException("$fileName not found")
   }
-  //return file.asRequestBody(MEDIA_TYPE_PLAIN)
   return file.asRequestBody(mediaType)
 }
 
-fun createFormBody(): RequestBody {
+fun createFormBody(formParams: Map<String, String> ): RequestBody {
+  val formValue: String = formParams[formParams.keys.elementAt(0).toString()]!!
+  //val formValue = formParams[formParams.keys.elementAt(0)]
+  //if (formValue == null)
+    //println("Incomplete form")
+
+  //formValue?.let{
+    //println("")
+  //}
   val formBody = FormBody.Builder()
-      .add("search", "Jurassic Park")
+      //.add("search", "Jurassic Park")
+      .add(formParams.keys.elementAt(0), formValue)
+      //.add(formParams.keys.elementAt(0), formParams[formParams.keys.elementAt(0).toString()])
+  //val formValue = formParams[formParams.keys.elementAt(0)]
       .build()
   return formBody
 }

@@ -2,6 +2,7 @@ package test.com.github.jmd.connect
 import com.github.jmd.connect.*
 
 import java.io.FileNotFoundException
+import kotlin.collections.map
 
 import okhttp3.mockwebserver.*
 
@@ -65,7 +66,8 @@ class HttpsUrlConnectionTests {
   @Test
   fun POSTParamsReturnsResponse() {
     createPostParamsExpectation()
-    val response = Http.POST(url, createFormBody())
+    val formParams: Map<String, String> = mapOf("search" to "Jurassic Park")
+    val response = Http.POST(url, createFormBody(formParams))
     assertEquals("POST request with params received by server", response)
   }
 }
