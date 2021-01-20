@@ -26,9 +26,9 @@ class HttpsUrlConnectionTests {
     mockWebServer.enqueue(MockResponse().setBody("GET request received by server"));
   }
   
-  //fun createPOSTExpectation() {
-    //mockWebServer.enqueue(MockResponse().setBody("POST request received by server"));
-  //}
+  fun createPOSTExpectation() {
+    mockWebServer.enqueue(MockResponse().setBody("POST request received by server"));
+  }
 
   @Test
   fun GETReturnsResponse() {
@@ -41,8 +41,9 @@ class HttpsUrlConnectionTests {
 
   @Test
   fun POSTReturnsResponse() {
-    val response = Http.POST("https://api.github.com/markdown/raw")
+    createPOSTExpectation()
+    val response = Http.POST(url)
     assertNotNull(response)
-    print(response)
+    assertEquals("POST request received by server", response)
   }
 }

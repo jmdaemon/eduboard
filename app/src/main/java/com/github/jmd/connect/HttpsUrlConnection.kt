@@ -19,7 +19,7 @@ class Http {
     }
   }
 
-  fun POST(url: String) {
+  fun POST(url: String): String {
     val postBody = """
         |Releases
         |--------
@@ -33,16 +33,21 @@ class Http {
         //.url("https://api.github.com/markdown/raw")
         .url(url)
         .post(postBody.toRequestBody(MEDIA_TYPE_MARKDOWN))
+        //.post(postBody).toRequestBody(MEDIA_TYPE_PLAIN)
         .build()
 
     client.newCall(request).execute().use { response ->
       if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
-      println(response.body!!.string())
+      //println(response.body!!.string())
+      return response.body!!.string()
     }
   }
 
   companion object {
     val MEDIA_TYPE_MARKDOWN = "text/x-markdown; charset=utf-8".toMediaType()
   }
+  //companion object {
+    //val MEDIA_TYPE_PLAIN = "text/plain; charset=utf-8".toMediaType()
+  //}
 }
