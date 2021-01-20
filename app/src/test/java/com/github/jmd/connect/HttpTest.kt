@@ -79,15 +79,9 @@ class HttpsUrlConnectionTests {
   @Test
   fun POSTHeadersReturnsResponse() {
     createPostHeaderExpectation()
-    //val request = Request.Builder()
-    //createHeader(url, request, mapOf("Content-Type" to "text/plain"))
-    val request = createHeader(url, mapOf("Content-Type" to "text/plain", "User-Agent" to "Test-Agent"))
-    //val response = Http.POST(request.build())
-    //val headers = request.headers().toString()
-    println(request.header("Content-Type"))
+    val request = createHeader(url, mapOf("Content-Type" to "text/plain"))
     val response = Http.POST(request)
-    //println(response.header("Content-Type"))
-    println(response)
-    assertNotNull(response)
+    assertEquals("text/plain", request.header("Content-Type"))
+    assertEquals("POST request with header received by server", response)
   }
 }
