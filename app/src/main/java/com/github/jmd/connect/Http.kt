@@ -6,6 +6,7 @@ import java.io.File
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.FormBody
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -47,6 +48,18 @@ class Http {
         .url(url)
         .post(file.asRequestBody(MEDIA_TYPE_PLAIN))
         .build()
+    return sendRequest(request)
+  }
+
+  fun POSTParams(url: String): String {
+    val formBody = FormBody.Builder()
+        .add("search", "Jurassic Park")
+        .build()
+    val request = Request.Builder()
+        .url(url)
+        .post(formBody)
+        .build()
+
     return sendRequest(request)
   }
 

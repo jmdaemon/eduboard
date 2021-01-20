@@ -58,4 +58,11 @@ class HttpsUrlConnectionTests {
     assertNotNull(response)
     assertEquals("ImaginaryFile.txt not found", response)
   }
+
+  @Test
+  fun POSTParamsReturnsResponse() {
+    val response = Http.POSTParams("https://en.wikipedia.org/w/index.php")
+    assertNotNull(response)
+    println(response)
+  }
 }
