@@ -5,6 +5,8 @@ import java.io.FileNotFoundException
 import kotlin.collections.map
 
 import okhttp3.mockwebserver.*
+import okhttp3.Request
+import okhttp3.Request.Builder
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.*
@@ -43,6 +45,10 @@ class HttpsUrlConnectionTests {
     mockWebServer.enqueue(MockResponse().setBody("POST request with params received by server"));
   }
 
+  fun createPostHeaderExpectation() {
+    mockWebServer.enqueue(MockResponse().setBody("POST request with header received by server"));
+  }
+
   @Test
   fun GETReturnsResponse() {
     createGETExpectation()
@@ -68,5 +74,20 @@ class HttpsUrlConnectionTests {
     createPostParamsExpectation()
     val response = Http.POST(url, createFormBody(mapOf("search" to "Jurassic Park")))
     assertEquals("POST request with params received by server", response)
+  }
+
+  @Test
+  fun POSTHeadersReturnsResponse() {
+    createPostHeaderExpectation()
+    //val request = Request.Builder()
+    //createHeader(url, request, mapOf("Content-Type" to "text/plain"))
+    val request = createHeader(url, mapOf("Content-Type" to "text/plain", "User-Agent" to "Test-Agent"))
+    //val response = Http.POST(request.build())
+    //val headers = request.headers().toString()
+    println(request.header("Content-Type"))
+    val response = Http.POST(request)
+    //println(response.header("Content-Type"))
+    println(response)
+    assertNotNull(response)
   }
 }

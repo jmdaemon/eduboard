@@ -32,7 +32,13 @@ class Http {
     return sendRequest(request)
   } 
 
-  fun POST(request: Request): String {
-    return sendRequest(request)
-  } 
+  fun POST(request: Request): String { 
+      client.newCall(request).execute().use { response ->
+        if (!response.isSuccessful) throw IOException("Unexpected code $response") 
+
+        //println("Content-Type: ${response.header("Content-Type")}")
+        return response.body!!.string()
+      }
+      //return sendRequest(request) 
+  }
 }

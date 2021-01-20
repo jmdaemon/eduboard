@@ -36,14 +36,8 @@ fun createFormBody(formParams: Map<String, String> ): RequestBody {
   return formBody
 }
 
-//fun createHeader(url: String, request: RequestBuilder, header: Map<String, String>): Request {
-fun createHeader(url: String, request: Request.Builder, header: Map<String, String>){
-  //val request = Request.Builder()
-    request.url(url)
-    header.forEach() { k,v -> request.addHeader(k, v) }
-    //.header("User-Agent", "OkHttp Headers.java")
-    //.addHeader("Accept", "application/json; q=0.5")
-    //.addHeader("Accept", "application/vnd.github.v3+json")
-    //val result: Request = request.build()
-    //return result
+fun createHeader(url: String, header: Map<String, String>): Request {
+  val request = Request.Builder().url(url)
+  header.forEach() { k,v -> request.addHeader(k, v) }
+  return request.build()
 }
