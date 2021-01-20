@@ -40,7 +40,6 @@ class Http {
       val errorMsg = "$fileName not found"
       println(errorMsg)
       throw FileNotFoundException("$fileName not found")
-      //return errorMsg
     }
     return file.asRequestBody(MEDIA_TYPE_PLAIN)
   }
@@ -52,24 +51,12 @@ class Http {
     return formBody
   }
 
-  fun sendPostRequest(url: String, requestBody: RequestBody): String {
+  fun POST(url: String, requestBody: RequestBody): String {
     val request = Request.Builder()
         .url(url)
         .post(requestBody)
         .build()
     return sendRequest(request)
-  }
-
-  fun POST(url: String, postBody: String): String {
-    return sendPostRequest(url, createPostBody(postBody))
-  }
-
-  fun POSTForm(url: String, fileName: String): String {
-    return sendPostRequest(url, createFileBody(fileName))
-  }
-
-  fun POSTParams(url: String): String {
-    return sendPostRequest(url, createFormBody())
   }
 
   companion object {
