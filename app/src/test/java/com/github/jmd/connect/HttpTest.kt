@@ -15,13 +15,13 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 class HttpsUrlConnectionTests {
-  private var url = "http://127.0.0.1:8080"
+  private var url = "http://127.0.0.1:8000"
   private val mockWebServer = MockWebServer()
   val Http = Http()
   
   @BeforeEach
   fun setUp() {  
-    mockWebServer.start(8080)
+    mockWebServer.start(8000)
   }
 
   @AfterEach
